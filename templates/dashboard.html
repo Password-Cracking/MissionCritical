@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link
+      rel="icon"
+      href="https://png.pngtree.com/png-clipart/20230804/original/pngtree-lock-single-icon-art-button-yellow-vector-picture-image_9539311.png"
+      type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .navbar {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background-color: #1f2041; /* Dark blue */
+        color: #ffdf64; /* Yellow */
+        border-bottom: 2px solid #2c3e50;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 600;
+        font-size: 1.8rem;
+        color: #ffdf64; /* Yellow */
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        color: #ffdf64; /* Yellow */
+        font-weight: 500;
+      }
+
+      .container {
+        padding-top: 50px;
+      }
+      .container h1 {
+        font-weight: bold;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #1f2041; /* Dark blue */
+      }
+      .card {
+        margin-top: 20px;
+        border: none;
+        border-radius: 10px; /* Fully rounded corners */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        background-color: #ffdf64; /* Yellow */
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .card-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #1f2041; /* Dark blue */
+      }
+      .list-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 2rem;
+      }
+      .list-group-item {
+        color: #1f2041; /* Dark blue */
+        border: none;
+        text-decoration: none !important;
+      }
+      .list-item {
+        border: none;
+        width: 20rem;
+        padding: 2rem;
+        height: 15rem;
+        cursor: pointer;
+        font-size: 28px;
+        color: #1f2041;
+        font-weight: bold;
+        margin-left: 1rem;
+        border-radius: 10px;
+        background-color: #ffdf64;
+        transition: all 0.18s ease-in-out;
+      }
+      .list-item:hover {
+        background-color: #e1c34e;
+      }
+      .btn-primary,
+      .btn-danger {
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+      }
+      .btn-primary:hover,
+      .btn-danger:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      #taskForms {
+        padding: 20px;
+      }
+      .task-options {
+        border-radius: 10px; /* Fully rounded corners */
+      }
+      .user-wrapper {
+        margin-right: 1rem;
+      }
+
+      .user-wrapper .nav-link {
+        font-weight: bold !important;
+      }
+
+      .logout-wrapper {
+        background-color: rgb(255, 46, 46);
+        border-radius: 10px;
+        color: white !important;
+        padding: 0 20px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        width: 10rem;
+        text-align: center;
+        transition: background-color 0.18s linear;
+      }
+
+      .logout-wrapper:hover {
+        background-color: rgb(193, 30, 30);
+        transition: background-color 0.18s linear;
+      }
+
+      .logout-wrapper .nav-link {
+        color: white !important;
+        font-weight: bold !important;
+      }
+
+      @media screen and (max-width: 991px) {
+        .logout-wrapper {
+          margin: 0;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+        }
+      }
+
+      @media screen and (max-width: 410px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .container {
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .list-item {
+          font-size: 1.5rem;
+          width: 15rem;
+          margin-left: 0;
+        }
+
+        .list-group {
+          width: 100%;
+        }
+      }
+
+      .mission-master {
+        width: 100%;
+        display: flex;
+        text-align: right;
+        align-items: center;
+      }
+
+      .mission-master div {
+        margin-left: 1rem;
+        margin-top: -0.3rem;
+      }
+
+      .mission-master a {
+        width: 100%;
+        display: flex;
+        font-size: 24px;
+        color: #ffdf64;
+        text-align: right;
+        align-items: center;
+        text-decoration: none;
+        justify-content: flex-end;
+        transition: all 0.18s ease-in-out;
+      }
+
+      .mission-master a:hover {
+        color: #dcbf49;
+        font-size: 24.5px;
+        transition: all 0.18s ease-in-out;
+      }
+
+      .footer {
+        color: white;
+        overflow: hidden;
+        padding: 2rem 10rem;
+        padding-bottom: 2rem;
+        background-color: #202029;
+      }
+
+      .footer-feedback h3 {
+        margin-bottom: 2rem;
+        color: #ffdf64;
+      }
+
+      .footer-feedback {
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .footer-feedback input {
+        width: 20rem;
+        font-size: 1rem;
+        margin-top: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        border-radius: 0.25rem;
+        background-color: #fff;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #ced4da;
+        background-clip: padding-box;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .footer-feedback textarea {
+        width: 20rem;
+        font-size: 14px;
+        margin-top: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        border-radius: 0.25rem;
+        background-color: #fff;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #ced4da;
+        background-clip: padding-box;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .footer-feedback input:focus {
+        outline: 0;
+        border-color: #ffdf64;
+        box-shadow: 0 0 0 0.2rem #ffdf6430;
+      }
+
+      .footer-feedback textarea:focus {
+        outline: 0;
+        border-color: #ffdf64;
+        box-shadow: 0 0 0 0.2rem #ffdf6430;
+      }
+
+      .footer-feedback button {
+        border: none;
+        color: #6e5800;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 1rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #ffdf64;
+      }
+
+      .footer-info {
+        text-align: center;
+      }
+
+      .footer-row {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .footer-item {
+        margin-right: 1rem;
+      }
+
+      .footer-action {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-logo h3 {
+        margin-left: 1rem;
+        color: #ffdf64;
+        margin-bottom: -0.1rem;
+      }
+
+      @media screen and (max-width: 1300px) {
+        .dashboard-container {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+
+      @media screen and (max-width: 1180px) {
+        .characteristic {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .characteristic-item {
+          width: 40%;
+        }
+      }
+
+      @media screen and (max-width: 1140px) {
+        .footer {
+          padding: 2rem 2rem;
+        }
+
+        .container {
+          padding-top: 5rem;
+          padding-bottom: 5rem;
+        }
+
+        .option-content {
+          width: 70%;
+        }
+
+        .footer-row {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        .footer-item {
+          width: 90%;
+        }
+
+        .footer-feedback {
+          width: 100%;
+        }
+
+        .footer-action {
+          padding-top: 2rem;
+          width: 110%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .footer-feedback input,
+        .footer-feedback textarea {
+          width: 100%;
+        }
+      }
+
+      @media screen and (max-width: 870px) {
+        .characteristic-item {
+          width: 100%;
+          margin-right: -0.5rem;
+        }
+
+        .footer-feedback {
+          margin-top: 3rem;
+          margin-bottom: 4rem;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .item-title h3 {
+          font-size: 18px;
+        }
+
+        .item-title img {
+          width: 20px;
+        }
+
+        .progress-bar {
+          height: 10px;
+        }
+
+        .progress-text {
+          font-size: 16px;
+        }
+
+        .title-container h1 {
+          font-size: 22px;
+        }
+
+        .cracking-time h3 {
+          font-size: 22px;
+          text-align: center;
+        }
+        .cracking-time p {
+          font-size: 18px;
+        }
+        .suggestions h3 {
+          font-size: 22px;
+          text-align: center;
+        }
+        .suggestion-list li {
+          font-size: 14px;
+        }
+      }
+
+      @media screen and (max-width: 470px) {
+        .option-content {
+          width: 100%;
+        }
+
+        .requirements-option-content {
+          width: 100%;
+        }
+
+        .generate-title {
+          font-size: 22px;
+        }
+
+        .option-content.upload {
+          width: 100%;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .input-items-wrapper {
+          width: 100%;
+        }
+
+        .input-item {
+          width: 100%;
+        }
+
+        .generate-input {
+          width: 100%;
+        }
+
+        .generator-input input {
+          width: 80% !important;
+        }
+
+        #numbers {
+          width: 80% !important;
+        }
+
+        #length {
+          width: 75% !important;
+        }
+
+        .requirements-regenerate-button {
+          width: 85% !important;
+        }
+
+        .input-item.upload {
+          margin-right: 0;
+        }
+
+        .generator-input {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="#">User Dashboard</a>
+
+      <button
+        type="button"
+        class="navbar-toggler"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active user-wrapper">
+            <a class="nav-link" href="#">Welcome, {{ user.first_name }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/assigned_missions">Assigned Missions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/change_password">Change Password</a>
+          </li>
+          <li class="nav-item logout-wrapper">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="text-center mb-4">User Dashboard</h1>
+      <div class="list-group">
+        <a href="/create_mission" class="list-group-item"
+          ><div class="list-item">Create New Mission</div>
+        </a>
+        <a href="/assigned_missions" class="list-group-item"
+          ><div class="list-item">View Your Missions</div>
+        </a>
+        <div class="col-md-8" id="taskForms"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img
+            width="50px"
+            alt="MissionMaster"
+            src="https://png.pngtree.com/png-clipart/20230804/original/pngtree-lock-single-icon-art-button-yellow-vector-picture-image_9539311.png" />
+          <h3>MissionMaster</h3>
+        </div>
+
+        <div class="footer-feedback">
+          <div class="footer-wrapper">
+            <h3>We value your feedback. Please send your feedback</h3>
+
+            <form action="mailto:passprotectorpro@gmail.com" method="post" enctype="text/plain">
+              <div class="footer-row">
+                <div class="footer-item">
+                  <label for="user-email">Your Email:</label>
+                  <br />
+                  <input type="email" id="user-email" name="user-email" required />
+                </div>
+
+                <br />
+                <br />
+
+                <div class="footer-item">
+                  <label for="user-message">Message:</label>
+                  <br />
+                  <textarea id="user-message" name="user-message" rows="4" required></textarea>
+                  <div class="footer-action">
+                    <button type="submit">Send</button>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+            </form>
+          </div>
+        </div>
+
+        <div class="mission-master">
+          <a href="https://passprotectorpro-arkupgg2sa-uc.a.run.app" target="_blank"
+            >PassProtectorPro
+            <div class="ml-2">>></div></a
+          >
+        </div>
+
+        <div class="footer-info pt-4">
+          <p>
+            &copy; Designed by students: Rand Abu-Ghazaleh | Ayat Hafez | Sara Mansour | Yara
+            Al-Jammal | Supervised by: Dr. Qasem Abu Al-Haija.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
